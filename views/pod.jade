@@ -1,0 +1,75 @@
+extend layout
+block content
+	nav(class="pure-g" data-view="Nav")
+		a(href="/")
+			h2(id="nav-left") PodServer
+		span(id="nav-right" style="margin:15px 7px;")
+			a(href="/logout" id="nav-btn-logout" class="logout pure-button") Logout
+	.container(data-view="Pod")
+		.pod-main(style="min-height: 10em;")
+			a(href="#{pod.url}")
+				img(style="float:left; display: inline; padding: 1em; margin: 2em; height: 3em; width: 3em;" src="#{pod.icon}")
+
+			h2(data-key="title") #{pod.title}
+			p(data-key="description") #{pod.description}
+			#repoStatus
+				if status == "Up to Date"
+					#changed= status
+					.pure-button(class="button-success" id="git_status") Check Status
+				else if status == "Missing"
+					#changed= status
+					.pure-button(class="button-error" id="git_clone") Pull Latest
+				else
+					ul(id="changed") You've changed these files:
+						each code, filename in status
+							li= '- ' + filename
+					.pure-button(class="button-secondary" id="git_pull") Pull Latest (Keeps your changes intact)
+					.pure-form
+						input(type="text" placeholder="Commit Message (Required)" name="message")
+						.pure-button(id="git_commit_push" class="greyed") Commit and Push
+				#updated(class="tooltip")= timestamp
+
+		if manifest
+			h3 Tags
+			.tooltip Click to edit
+			ul(id="pod-tags")
+				if manifest.tags
+					each tag, index in manifest.tags
+						li= tag
+
+			if manifest.actions
+				h3(style="margin-top: 3em;") Actions
+				ul(data-key="actions")
+					each action, actionName in manifest.actions
+						li(data-key="#{actionName}" class="pure-u-11-12")
+							a(href="/pods/#{pod.name}/#{actionName}")
+								h4= actionName
+							p= action.description
+							ul(data-key="imports" class="pure-u-1-1")
+								p Imports:
+								each property, index in action.imports.properties
+									li(data-key="#{index}" style="display:inline;")
+										ul(class="pure-u-1-6 pure-form")
+											li
+												strong= index
+											br
+											li Type: 
+												input(style="font-style: italic; max-width:100%; margin-top:0.25em;" value="#{property.type}")
+											br
+											li Description:
+												textarea(style="max-width:100%; margin-top:0.25em;")= property.description
+							
+							ul(data-key="exports" class="pure-u-1-1")
+								p Exports:
+								each property, index in action.exports.properties
+									li(data-key="#{index}" style="display:inline;")
+										ul(class="pure-u-1-6 pure-form")
+											li
+												strong= index
+											br
+											li Type: 
+												input(style="font-style: italic; max-width:100%; margin-top:0.25em;" value="#{property.type}")
+											br
+											li Description:
+												textarea(style="max-width:100%; margin-top:0.25em;")= property.description
+

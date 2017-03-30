@@ -1,0 +1,17 @@
+extend layout
+block content
+  nav(class="pure-g" data-view="Nav")
+    a(href="/")
+      h2(id="nav-left") #{title}
+    form(id="nav-login-form" class="pure-form" style="display: inline-block;")
+      input(type="text" placeholder="Full (First and Last) Name" name="fullName" style="margin:15px 7px; display: inline-block;")
+      input(type="password" placeholder="LDAP Password" name="password" style="margin:15px 7px; display: inline-block;")
+    span(id="nav-right" style="margin:15px 7px;")
+        button(id="nav-btn-login" class="pure-button button-success") Login
+  .container(style="padding: 10px; height: 100%;")
+    .pure-u-1-8
+    .pure-u-3-4(style="padding: 10em; border-radius: 0.25em; text-align: center;")
+      h1 PodServer 
+      p(style="") 
+        | A nifty tool for <a href="http://wot.io">wot.io</a> employees to experiment with <a href="http://bip.io">bipio</a> pods.
+    .pure-u-1-8

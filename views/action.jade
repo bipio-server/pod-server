@@ -1,0 +1,11 @@
+extend layout
+block content
+	nav(class="pure-g" data-view="Nav")
+		a(href="/")
+			h2(id="nav-left") PodServer
+		span(id="nav-right" style="margin:15px 7px;")
+			a(href="/logout" id="nav-btn-logout" class="logout pure-button") Logout
+	.container(data-view="Action" )
+		.pure-u-1-8
+		#editor(class="pure-u-3-4")= code
+		.pure-u-1-8

@@ -1,0 +1,19 @@
+extend layout
+block content
+	nav(class="pure-g" data-view="Nav")
+		a(href="/")
+			h2(id="nav-left") PodServer
+		span(id="nav-right" style="margin:15px 7px;")
+			a(href="/logout" id="nav-btn-logout" class="logout pure-button") Logout
+	.container(data-view="Dash")
+		.dash-main
+			h2(data-key="title") Dashboard
+			p(data-key="description") Legend:
+			.legend(class="missing") 
+				.title Missing
+			.legend(class="changed") 
+				.title Changed
+		each pod in pods
+			a(href="/pods/#{pod.name}")
+				.bip-pod(class="pure-u-1-24 #{pod.status}" style="background: transparent url('#{pod.icon}') no-repeat center 30%;")
+					.title= pod.name

@@ -1,0 +1,5 @@
+node_modules/
+pods/
+actions/
+.DS_Store
+sftp-config.json
